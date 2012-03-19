@@ -67,6 +67,7 @@
     if ([[DBSession sharedSession] handleOpenURL:url]) {
         if ([[DBSession sharedSession] isLinked]) {
             NSLog(@"App linked successfully!");
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"DropboxLinked" object:nil];
             // At this point you can start making API calls
         }
         return YES;

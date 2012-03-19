@@ -32,6 +32,7 @@
 							
 - (void)viewDidLoad
 {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dropboxLinked) name:@"DropboxLinked" object:nil];
     [super viewDidLoad];
     NSMutableArray * nums = [[NSMutableArray alloc] init];
     for(int i = 2; i<=20; i++)
@@ -46,11 +47,20 @@
     else
         [numberPicker selectRow:0 inComponent:0 animated:NO];
     
+    [dropboxButton.titleLabel setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
+    if([[DBSession sharedSession] isLinked])
+        [dropboxButton setTitle:@"Unlink Dropbox" forState:UIControlStateNormal]; 
+    else {
+        [dropboxButton setTitle:@" Link Dropbox " forState:UIControlStateNormal];
+    } 
+   
+    
 }
 
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
     
 }
 
@@ -65,6 +75,11 @@
     return YES;
 }
 
+-(void) dropboxLinked
+{
+    [dropboxButton setTitle:@"Unlink Dropbox" forState:UIControlStateNormal];
+}
+
 
 #pragma mark - Actions
 
@@ -76,6 +91,12 @@
 {
     if (![[DBSession sharedSession] isLinked]) {
         [[DBSession sharedSession] link];
+        
+    }
+    else
+    {
+        [[DBSession sharedSession] unlinkAll];
+        [dropboxButton setTitle:@"Link Dropbox" forState:UIControlStateNormal];
     }
 }
 

@@ -25,5 +25,6 @@
 
 - (IBAction)dropboxPressed:(id)sender;
 - (IBAction)done:(id)sender;
+- (void)dropboxLinked;
 
 @end
