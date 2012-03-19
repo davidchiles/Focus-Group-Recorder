@@ -70,4 +70,17 @@
     return files;
 }
 
++(void)deleteAllFilesRelatedTo:(NSString *)fileName
+{
+    NSFileManager *fileMgr = [NSFileManager defaultManager];
+    NSError * error;
+    NSString * docDirectory =[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString * textPath = [docDirectory stringByAppendingPathComponent:[fileName stringByAppendingPathExtension:@"txt"]];
+    NSString * audioPath = [docDirectory stringByAppendingPathComponent:[fileName stringByAppendingPathExtension:@"m4a"]];
+    
+    [fileMgr removeItemAtPath:textPath error:&error];
+    if([fileMgr fileExistsAtPath:audioPath])
+        [fileMgr removeItemAtPath:audioPath error:&error];
+}
+
 @end

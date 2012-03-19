@@ -26,7 +26,7 @@
 
 @property (nonatomic) int numberOfFiles;
 //@property (nonatomic,strong) IBOutlet UINavigation
-@property (strong, nonatomic) NSArray * fileList;
+@property (strong, nonatomic) NSMutableArray * fileList;
 @property (strong, nonatomic) IBOutlet UITableView *fileTableView;
 @property (weak, nonatomic) id <UBCFileViewControllerDelegate> delegate;
 @property (strong,nonatomic) MBProgressHUD * HUD;

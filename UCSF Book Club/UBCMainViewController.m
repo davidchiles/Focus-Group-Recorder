@@ -108,8 +108,8 @@
     int n =0;
     for(UIButton * button in buttonsArray)
     {
-        float midXButton = (limit * cosf(angle*n))+midX; 
-        float midYButton = (limit * sinf(angle*n))+midY;
+        float midXButton = (limit * cosf(angle*n+M_PI*1.5))+midX; 
+        float midYButton = (limit * sinf(angle*n+M_PI*1.5))+midY;
         
         button.frame = CGRectMake(midXButton-buttonSize/2, midYButton-buttonSize/2, buttonSize, buttonSize);
         button.titleLabel.font = [UIFont systemFontOfSize:buttonSize/1.5];
@@ -175,8 +175,8 @@
     for (int n = 0; n<bts; n++) 
     {
         //Get Button center
-        float midXButton = (limit * cosf(angle*n))+midX; 
-        float midYButton = (limit * sinf(angle*n))+midY;
+        float midXButton = (limit * cosf(angle*n+M_PI*1.5))+midX; 
+        float midYButton = (limit * sinf(angle*n+M_PI*1.5))+midY;
         
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         [button addTarget:self 

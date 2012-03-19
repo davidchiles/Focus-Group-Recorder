@@ -34,7 +34,7 @@
 {
     [super viewDidLoad];
     NSMutableArray * nums = [[NSMutableArray alloc] init];
-    for(int i = 1; i<=20; i++)
+    for(int i = 2; i<=20; i++)
     {
         [nums addObject:[NSString stringWithFormat:@"%d",i]];
     }
@@ -98,7 +98,7 @@
 
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-    numberOfPeople = row+1;
+    numberOfPeople = row+2;
 }
 
 @end

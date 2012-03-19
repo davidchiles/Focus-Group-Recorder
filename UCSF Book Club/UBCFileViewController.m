@@ -35,7 +35,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    fileList = [[NSArray alloc] initWithArray:[UBCFileReader listFileAtPath]];
+    fileList = [[NSMutableArray alloc] initWithArray:[UBCFileReader listFileAtPath]];
     
     
 }
@@ -43,7 +43,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    fileList = [[NSArray alloc] initWithArray:[UBCFileReader listFileAtPath]];
+    fileList = [[NSMutableArray alloc] initWithArray:[UBCFileReader listFileAtPath]];
     [fileTableView reloadData];
 }
 
@@ -173,6 +173,21 @@
     */
     
     
+}
+
+// Override to support conditional editing of the table view.
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Return YES if you want the specified item to be editable.
+    return YES;
+}
+
+// Override to support editing the table view.
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [UBCFileReader deleteAllFilesRelatedTo:((UBCFileInfo*)[fileList objectAtIndex:indexPath.row]).name];
+        [fileList removeObjectAtIndex:indexPath.row];
+        [tableView deleteRowsAtIndexPaths:[[NSArray alloc] initWithObjects:indexPath, nil] withRowAnimation:UITableViewRowAnimationRight];
+    }    
 }
 
 -(void) finishedCompression

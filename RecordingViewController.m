@@ -76,14 +76,19 @@
     self.navigationItem.title= [fileInfo getName];
 }
 
-- (IBAction) makeAudioPressed:(UIButton *)sender
+- (void) makeAudio
 {
+    HUD = [[MBProgressHUD alloc] initWithView:self.view];
+    [self.view addSubview:HUD];
+    HUD.delegate = self;
+    [HUD show:YES];
+    
     NSString * audioFilePath = [[fileInfo.filePath stringByDeletingPathExtension] stringByAppendingPathExtension:@"m4a"];
     BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:audioFilePath];
     if (fileExists) {
         NSLog(@"Audio File Exists");
         //emailPath = checkAudioPath;
-        //[self finishedCompression];
+        [self finishedCompression];
     }
     else 
     {
@@ -92,21 +97,33 @@
         NSString * cachesDirectory = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
         NSString * audioFilePath = [cachesDirectory stringByAppendingPathComponent:audioFileName];
         
-        HUD = [[MBProgressHUD alloc] initWithView:self.view];
-        [self.view addSubview:HUD];
         
-        HUD.delegate = self;
-        [HUD show:YES];
         HUD.labelText = @"Creating...";
         
+    
+        dispatch_queue_t q = dispatch_queue_create("queue", NULL);
+        
+        dispatch_async(q, ^{
+            [UBCAudioMixer audioFilefromText:fileInfo.filePath toFile:audioFilePath];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                HUD.labelText =@"Compressing...";
+                UBCAudioMixer * audioMixer = [[UBCAudioMixer alloc] init];
+                [audioMixer convertForExport:fileInfo.name];
+            });
+        });
+        
+        dispatch_release(q);
         
         
-        [UBCAudioMixer audioFilefromText:fileInfo.filePath toFile:audioFilePath];
-        UBCAudioMixer * audioMixer = [[UBCAudioMixer alloc] init];
         
-        HUD.labelText =@"Compressing...";
         
-        [audioMixer convertForExport:fileInfo.name];
+        
+        //UBCAudioMixer * audioMixer = [[UBCAudioMixer alloc] init];
+        
+        //HUD.labelText =@"Compressing...";
+        
+        //[audioMixer convertForExport:fileInfo.name];
         NSLog(@"Email Path: %@",fileInfo.filePath);
     }
     
@@ -114,11 +131,7 @@
 }
 -(void) finishedCompression
 {
-    [HUD hide:YES];
-}
-- (IBAction) uploadPressed:(UIButton *)sender
-{
-    //Upload to dropbox
+    //[HUD hide:YES];
     
     NSString * localPath = fileInfo.filePath;
     NSString * audioPath = [[fileInfo.filePath stringByDeletingPathExtension] stringByAppendingPathExtension:@"m4a"];
@@ -130,16 +143,15 @@
     self.dropbox = [[UBCDropboxController alloc] init];
     dropbox.delegate = self;
     
-    HUD = [[MBProgressHUD alloc] initWithView:self.view];
-    [self.view addSubview:HUD];
     
-    HUD.delegate = self;
-    [HUD show:YES];
     HUD.labelText = @"Uploading...";
     
     [dropbox uploadWithFiles:localPaths andDestinationFolder:destinationPath];
-    
-    
+}
+- (IBAction) uploadPressed:(UIButton *)sender
+{
+    //Upload to dropbox
+    [self makeAudio];
 }
 - (IBAction) deletePressed:(UIButton *)sender
 {
