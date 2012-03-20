@@ -74,6 +74,23 @@
     [content addObject:[[NSDictionary alloc] initWithObjectsAndKeys:participants,@"detailTextLabel",@"Participants",@"textLabel", nil]];
     
     self.navigationItem.title= [fileInfo getName];
+    
+    if(![[DBSession sharedSession] isLinked])
+    {
+        uploadButton.enabled = NO;
+    }
+}
+
+- (void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    if(![[DBSession sharedSession] isLinked])
+    {
+        uploadButton.enabled = NO;
+    }
+    else {
+        uploadButton.enabled = YES;
+    }
 }
 
 - (void) makeAudio
@@ -136,7 +153,13 @@
     NSString * localPath = fileInfo.filePath;
     NSString * audioPath = [[fileInfo.filePath stringByDeletingPathExtension] stringByAppendingPathExtension:@"m4a"];
     NSArray * localPaths = [[NSArray alloc] initWithObjects:localPath,audioPath, nil];
-    NSString * destinationPath = @"/Book Club/Recordings/";
+     NSString * destinationPath = @"/Book Club/Recordings/";
+    if([[NSUserDefaults standardUserDefaults] objectForKey:@"dropbox_path"])
+    {
+        destinationPath = [[NSUserDefaults standardUserDefaults] objectForKey:@"dropbox_path"];
+    }
+    NSLog(@"destination path: %@",destinationPath);
+      
     //[[self restClient] uploadFile:fileName toPath:destinationPath withParentRev:nil fromPath:localPath];
     //[[self restClient] loadMetadata:[destinationPath stringByAppendingPathComponent:fileName]];
     //[[self restClient] loadMetadata:destinationPath];
@@ -208,6 +231,22 @@
 -(void)uploadsFinished:(int)num
 {
     [HUD hide:YES];
+}
+-(void)uploadFialed
+{
+    
+    HUD.labelText = @"Failed";
+#ifdef __BLOCKS__
+	
+	dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+		// Do a taks in the background
+		sleep(2);
+		// Hide the HUD in the main tread 
+		dispatch_async(dispatch_get_main_queue(), ^{
+			[MBProgressHUD hideHUDForView:self.view animated:YES];
+		});
+	});
+#endif
 }
 
 

@@ -75,6 +75,7 @@
 
 - (void)restClient:(DBRestClient*)client uploadFileFailedWithError:(NSError*)error {
     NSLog(@"File upload failed with error - %@", error);
+    [delegate uploadFialed];
 }
 
 - (void)restClient:(DBRestClient *)client loadedMetadata:(DBMetadata *)metadata {
@@ -91,6 +92,7 @@
 - (void)restClient:(DBRestClient *)client
 loadMetadataFailedWithError:(NSError *)error {
     NSLog(@"Error loading metadata: %@", error);
+    [delegate uploadFialed];
 }
 
 -(void) restClient:(DBRestClient *)client loadedAccountInfo:(DBAccountInfo *)info

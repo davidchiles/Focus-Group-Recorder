@@ -15,16 +15,20 @@
 - (void)flipsideViewControllerDidFinish:(UBCFlipsideViewController *)controller;
 @end
 
-@interface UBCFlipsideViewController : UIViewController <UIPickerViewDelegate,UIPickerViewDataSource>
+@interface UBCFlipsideViewController : UIViewController <UIPickerViewDelegate,UIPickerViewDataSource,UITableViewDelegate,UITableViewDataSource, UIActionSheetDelegate>
 
 @property (nonatomic) int numberOfPeople;
 @property (strong, nonatomic) NSArray * contentList;
 @property (strong, nonatomic) IBOutlet UIPickerView *numberPicker;
 @property (weak, nonatomic) id <UBCFlipsideViewControllerDelegate> delegate;
 @property (strong,nonatomic) IBOutlet UIButton * dropboxButton;
+@property (nonatomic, strong) IBOutlet UITableView * settingsTable;
+@property (nonatomic, strong) UITextView * pathText;
+@property (nonatomic,strong) UIActionSheet *actionSheet;
 
 - (IBAction)dropboxPressed:(id)sender;
 - (IBAction)done:(id)sender;
 - (void)dropboxLinked;
+- (void)dismissActoinSheet;
 
 @end

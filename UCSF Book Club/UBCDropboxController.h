@@ -11,6 +11,7 @@
 
 @protocol UBCDropboxControllerDelegate
 - (void)uploadsFinished:(int)num;
+- (void)uploadFialed;
 @end
 
 @interface UBCDropboxController : NSObject <DBRestClientDelegate>
@@ -23,5 +24,6 @@
 @property (weak, nonatomic) id <UBCDropboxControllerDelegate> delegate;
 
 -(void)uploadWithFiles:(NSArray*)files andDestinationFolder:(NSString*) filePath;
+-(NSArray *)getFoldersFrom:(NSString *)remotePath;
 
 @end

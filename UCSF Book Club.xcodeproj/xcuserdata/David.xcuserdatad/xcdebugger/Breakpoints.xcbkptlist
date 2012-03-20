@@ -112,11 +112,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "UCSF Book Club/UBCFlipsideViewController.m"
-         timestampString = "353886736.879985"
+         timestampString = "353901903.023017"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "90"
-         endingLineNumber = "90"
+         startingLineNumber = "114"
+         endingLineNumber = "114"
          landmarkName = "-dropboxPressed:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -125,12 +125,25 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "UCSF Book Club/UBCFlipsideViewController.m"
-         timestampString = "353886736.879985"
+         timestampString = "353900818.678771"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "78"
-         endingLineNumber = "78"
+         startingLineNumber = "101"
+         endingLineNumber = "101"
          landmarkName = "-dropboxLinked"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "RecordingViewController.m"
+         timestampString = "353901660.463769"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "158"
+         endingLineNumber = "158"
+         landmarkName = "-finishedCompression"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>
