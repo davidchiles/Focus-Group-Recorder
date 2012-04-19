@@ -11,8 +11,9 @@
 #import "UBCFileViewController.h"
 #import "UBCFileReader.h"
 #import "UBCAudioMixer.h"
+#import <AVFoundation/AVFoundation.h>
 
-@interface UBCMainViewController : UIViewController <UBCFlipsideViewControllerDelegate, UBCFileViewControllerDelegate>
+@interface UBCMainViewController : UIViewController <UBCFlipsideViewControllerDelegate, UBCFileViewControllerDelegate, AVAudioRecorderDelegate>
 
 @property (strong, nonatomic) UIPopoverController *flipsidePopoverController;
 @property (strong, nonatomic) UIPopoverController *filePopoverControler;
@@ -32,6 +33,8 @@
 @property (nonatomic) int timerCount;
 @property (strong, nonatomic) IBOutlet UIButton * undoButton;
 @property (strong, nonatomic) UIButton * lastButton;
+
+@property (strong, nonatomic) AVAudioRecorder * recorder;
 
 - (IBAction)showInfo:(id)sender;
 - (IBAction)showFiles:(id)sender;

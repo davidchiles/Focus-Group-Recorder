@@ -122,6 +122,7 @@
         
         dispatch_async(q, ^{
             [UBCAudioMixer audioFilefromText:fileInfo.filePath toFile:audioFilePath];
+            [UBCAudioMixer createMixedAudiofromTextAudio:audioFilePath andRecording:[[fileInfo.filePath stringByDeletingPathExtension] stringByAppendingPathExtension:@"caf"]];
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 HUD.labelText =@"Compressing...";

@@ -32,6 +32,7 @@
 @synthesize timer,timerCount, timerLabel;
 @synthesize undoButton;
 @synthesize lastButton;
+@synthesize recorder;
 
 - (void)viewDidLoad
 {
@@ -80,6 +81,8 @@
     
     //[avAudio prepareToPlay];
     //[avAudio play];	
+    
+    
     
 }
 
@@ -246,9 +249,12 @@
         NSString* documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
         NSString* filePath = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:currentFilePath]];
         
+        
         NSString * stringToAdd =[NSString stringWithFormat:@"File Created at %@",[NSDate date]];
         [stringToAdd writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:&error];
         
+        NSString * audioFilePath = [[filePath stringByDeletingPathExtension] stringByAppendingPathExtension:@"caf"];
+        [self startAudioRecordingWithFilePath:[NSURL URLWithString:audioFilePath]];
         
         startTap = [[UBCTap alloc] initWithDate:currentDate Number:recordButton.tag];
         [UBCOutput addTap:startTap toFilePath:currentFilePath withStartTap:startTap];
@@ -268,6 +274,7 @@
     else 
     {
         NSLog(@"stop recording");
+        [self stopAudioRecording];
         [self stopTimer];
         NSDate * currentDate = [NSDate date];
         UBCTap * tap = [[UBCTap alloc] initWithDate:currentDate Number:recordButton.tag];
@@ -360,6 +367,38 @@
 - (void)stopTimer
 {
     [timer invalidate];
+}
+-(void)startAudioRecordingWithFilePath:(NSURL *)fileUrl
+{
+    NSError *error;
+    
+    NSDictionary *recordSettings =
+    
+    [[NSDictionary alloc] initWithObjectsAndKeys:
+     
+     [NSNumber numberWithFloat: 22050.0],                 AVSampleRateKey,
+     [NSNumber numberWithInt: kAudioFormatLinearPCM],  AVFormatIDKey,
+     [NSNumber numberWithInt: 1],                         AVNumberOfChannelsKey,
+     [NSNumber numberWithInt: AVAudioQualityMax],         AVEncoderAudioQualityKey,
+     [NSNumber numberWithInt: 1],                        AVLinearPCMIsBigEndianKey,
+     
+     nil];
+    
+    AVAudioSession *session = [AVAudioSession sharedInstance]; [session setCategory:AVAudioSessionCategoryRecord error:nil];
+    
+    recorder = [[AVAudioRecorder alloc] initWithURL:fileUrl settings:recordSettings error:&error];
+    recorder.delegate = self;
+    
+    if(error)
+        NSLog(@"%@",[error description]);
+    
+    [recorder record];
+    
+}
+
+-(void)stopAudioRecording
+{
+    [recorder stop];
 }
 
 - (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {

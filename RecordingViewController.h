@@ -26,8 +26,8 @@
 @property (nonatomic,strong) UBCFileInfo * fileInfo;
 @property (nonatomic,strong) NSMutableArray * content;
 @property (nonatomic,strong) MBProgressHUD * HUD;
-@property (nonatomic) BOOL txtUploaded;
-@property (nonatomic) BOOL audioUploaded;
+//@property (nonatomic) BOOL txtUploaded;
+//@property (nonatomic) BOOL audioUploaded;
 @property (nonatomic,strong) UBCDropboxController *dropbox;
 
 - (IBAction) makeAudioPressed:(UIButton *)sender;

@@ -7,6 +7,7 @@
 //
 
 #import "UBCAudioMixer.h"
+#import "PCMMixer.h"
 
 
 static
@@ -73,13 +74,13 @@ static inline BOOL _checkResult(OSStatus result, const char *operation, const ch
     //bzero(inputDataFormat, sizeof(AudioStreamBasicDescription));
 	
 	inputDataFormat.mFormatID = kAudioFormatLinearPCM;
-	inputDataFormat.mSampleRate = 22050.0;
-	inputDataFormat.mChannelsPerFrame = 1;
+	inputDataFormat.mSampleRate = 44100.0;
+	inputDataFormat.mChannelsPerFrame = 2;
 	inputDataFormat.mBytesPerPacket = 2;
 	inputDataFormat.mFramesPerPacket = 1;
 	inputDataFormat.mBytesPerFrame = 2;
 	inputDataFormat.mBitsPerChannel = 16;
-	inputDataFormat.mFormatFlags = kAudioFormatFlagIsBigEndian | kAudioFormatFlagIsSignedInteger | kAudioFormatFlagIsPacked;
+	inputDataFormat.mFormatFlags = kAudioFormatFlagsNativeEndian | kAudioFormatFlagIsSignedInteger | kAudioFormatFlagIsPacked;
     
     //status = AudioFileCreateWithURL(existingCURL, kAudioFileCAFType, &inputDataFormat, kAudioFileFlags_EraseFile, &existingAudioFileID);
     //OSStatus status;
@@ -111,11 +112,11 @@ static inline BOOL _checkResult(OSStatus result, const char *operation, const ch
 	}
     
 	if ((inputDataFormat.mFormatID == kAudioFormatLinearPCM) &&
-		(inputDataFormat.mSampleRate == 22050.0) &&
-		(inputDataFormat.mChannelsPerFrame == 1) &&
-		(inputDataFormat.mChannelsPerFrame == 1) &&
+		(inputDataFormat.mSampleRate == 44100.0) &&
+		(inputDataFormat.mChannelsPerFrame == 2) &&
+		(inputDataFormat.mChannelsPerFrame == 2) &&
 		(inputDataFormat.mBitsPerChannel == 16)  &&
-		(inputDataFormat.mFormatFlags == (kAudioFormatFlagIsBigEndian | kAudioFormatFlagIsSignedInteger |kAudioFormatFlagIsPacked))
+		(inputDataFormat.mFormatFlags == (kAudioFormatFlagsNativeEndian | kAudioFormatFlagIsSignedInteger |kAudioFormatFlagIsPacked))
 		) {
 		// no-op when the expected data format is found
 	} else {
@@ -304,19 +305,64 @@ reterr:
 
 }
 
+
 + (void) _setDefaultAudioFormatFlags:(AudioStreamBasicDescription*)audioFormatPtr
 						 numChannels:(NSUInteger)numChannels
 {
 	bzero(audioFormatPtr, sizeof(AudioStreamBasicDescription));
 	
 	audioFormatPtr->mFormatID = kAudioFormatLinearPCM;
-	audioFormatPtr->mSampleRate = 22050.;
+	audioFormatPtr->mSampleRate = 44100.0;
 	audioFormatPtr->mChannelsPerFrame = numChannels;
 	audioFormatPtr->mBytesPerPacket = 2 * numChannels;
 	audioFormatPtr->mFramesPerPacket = 1;
 	audioFormatPtr->mBytesPerFrame = 2 * numChannels;
 	audioFormatPtr->mBitsPerChannel = 16;
 	audioFormatPtr->mFormatFlags = 0;
+}
+
+inline SInt16 TPMixSamples(SInt16 a, SInt16 b) {
+    return  
+    // If both samples are negative, mixed signal must have an amplitude between the lesser of A and B, and the minimum permissible negative amplitude
+    a < 0 && b < 0 ?
+    ((int)a + (int)b) - (((int)a * (int)b)/INT16_MIN) :
+    
+    // If both samples are positive, mixed signal must have an amplitude between the greater of A and B, and the maximum permissible positive amplitude
+    ( a > 0 && b > 0 ?
+     ((int)a + (int)b) - (((int)a * (int)b)/INT16_MAX)
+     
+     // If samples are on opposite sides of the 0-crossing, mixed signal should reflect that samples cancel each other out somewhat
+     :
+     a + b);
+}
+
++(NSString *)createMixedAudiofromTextAudio:(NSString *)textAudioPath andRecording:(NSString *)recordingPath
+{
+    NSString * mixPath = [[recordingPath stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"mixed.caf"];
+    
+    NSLog(@"start Mixing both");
+    OSStatus status;
+    status = [PCMMixer mix:textAudioPath file2:recordingPath mixfile:mixPath];
+
+    if (status == OSSTATUS_MIX_WOULD_CLIP) {
+		NSLog(@"Clipping");
+	} 
+    else {	
+        
+		NSURL *url = [NSURL fileURLWithPath:mixPath];
+        NSURL *textUrl = [NSURL fileURLWithPath:textAudioPath];
+        NSURL *recordingUrl = [NSURL fileURLWithPath:textAudioPath];
+		
+		NSData *urlData = [NSData dataWithContentsOfURL:url];
+        NSData *textUrlData = [NSData dataWithContentsOfURL:textUrl];
+        NSData *recordingUrlData = [NSData dataWithContentsOfURL:recordingUrl];
+		
+		NSLog(@"Wrote mix file of size %d : %@", [urlData length], mixPath);
+        NSLog(@"TextAudio file of size %d : %@", [textUrlData length], textAudioPath);
+        NSLog(@"RecordingAudio file of size %d : %@", [recordingUrlData length], recordingUrl);
+    }
+    
+    return mixPath;
 }
 
 +(NSString *)audioFilefromText:(NSString *)filePath toFile:(NSString *)mixPath
@@ -374,7 +420,7 @@ reterr:
     for (UBCTap * tap in taps) 
     {
         NSTimeInterval timeElapsed = [tap timeIntervalSinceTap:start];
-        SInt64 packets =(SInt64)(timeElapsed*22050.0);
+        SInt64 packets =(SInt64)(timeElapsed*44100.0);
         NSString * numString = [NSString stringWithFormat:@"%d",tap.num];
         NSString *resourceString;
         if (tap.num>=0)

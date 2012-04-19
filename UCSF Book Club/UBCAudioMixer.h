@@ -23,5 +23,6 @@
 +(NSString *)audioFilefromText:(NSString *)filePath toFile:(NSString *)mixPath;
 + (void) writeAudio: (NSString *) newAudio toExistingAudio: (AudioFileID) existingAudio atPacket: (SInt64) packet;
 -(NSString *) convertForExport:(NSString *)filePath;
++(NSString *)createMixedAudiofromTextAudio:(NSString *)textAudioPath andRecording:(NSString *)recordingPath;
 
 @end
