@@ -420,7 +420,7 @@ inline SInt16 TPMixSamples(SInt16 a, SInt16 b) {
     for (UBCTap * tap in taps) 
     {
         NSTimeInterval timeElapsed = [tap timeIntervalSinceTap:start];
-        SInt64 packets =(SInt64)(timeElapsed*44100.0);
+        SInt64 packets =(SInt64)(timeElapsed*22050.0);
         NSString * numString = [NSString stringWithFormat:@"%d",tap.num];
         NSString *resourceString;
         if (tap.num>=0)
