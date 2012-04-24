@@ -18,6 +18,7 @@
 @property (nonatomic) int numberOfParticipants;
 @property (nonatomic) BOOL hasAudio;
 @property (nonatomic) BOOL isUploaded;
+@property (nonatomic,strong) NSMutableArray * uploadList;
 
 
 

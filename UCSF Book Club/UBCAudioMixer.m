@@ -338,7 +338,11 @@ inline SInt16 TPMixSamples(SInt16 a, SInt16 b) {
 
 +(NSString *)createMixedAudiofromTextAudio:(NSString *)textAudioPath andRecording:(NSString *)recordingPath
 {
-    NSString * mixPath = [[recordingPath stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"mixed.caf"];
+    NSString* cachesDirectory = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    
+    NSArray * myArray = [recordingPath componentsSeparatedByString: @"/"];
+    NSString * fileName = (NSString*)[myArray lastObject];
+    NSString * mixPath = [cachesDirectory stringByAppendingPathComponent: [[fileName stringByDeletingPathExtension] stringByAppendingString:@"_mixed.caf"]];
     
     NSLog(@"start Mixing both");
     OSStatus status;
@@ -450,6 +454,41 @@ inline SInt16 TPMixSamples(SInt16 a, SInt16 b) {
     [audioConverter start];
     
     return destPath;
+    
+}
+-(void) compressAudio:(NSString *)sourcePath toDest:(NSString *) destinationPath
+{
+    audioConverter = [[TPAACAudioConverter alloc] initWithDelegate:self 
+                                                            source:sourcePath
+                                                       destination:destinationPath];
+    [audioConverter start];
+    
+}
+
+-(void)makeAllFilesfrom:(NSString *)fileSubName
+{
+    //Need to create all before hand
+    
+    NSString* documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString* cachesDirectory = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    
+    NSString* numbersAudioCAF = [cachesDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.%@",fileSubName,@"caf"]];
+    NSString* micAudioCAF = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.%@",fileSubName,@"caf"]];
+    NSString* mixedAudioCAF = [cachesDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_mixed.%@",fileSubName,@"caf"]];
+    NSString* txtFilePath = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.%@",fileSubName,@"txt"]];
+    
+    NSString* numbersAudoCompressed = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_numbers.%@",fileSubName,@"m4a"]];
+    NSString* micAudioCompressed = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_mic.%@",fileSubName,@"m4a"]];
+    NSString* mixedAudioCompressed = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_mixed.%@",fileSubName,@"m4a"]];
+    
+    [UBCAudioMixer audioFilefromText:txtFilePath toFile:numbersAudioCAF]; //Created textAudioCAF
+    [UBCAudioMixer createMixedAudiofromTextAudio:numbersAudioCAF andRecording:micAudioCAF]; //Created Mix audio
+    
+    //Compress all three
+    [self compressAudio:numbersAudioCAF toDest:numbersAudoCompressed];
+    [self compressAudio:micAudioCAF toDest:micAudioCompressed];
+    [self compressAudio:mixedAudioCAF toDest:mixedAudioCompressed];
+    
     
 }
 

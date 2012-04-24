@@ -34,7 +34,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        numberFinished = 0;
     }
     return self;
 }
@@ -73,6 +73,13 @@
     [content addObject:[[NSDictionary alloc] initWithObjectsAndKeys:length,@"detailTextLabel",@"Duration",@"textLabel", nil]];
     [content addObject:[[NSDictionary alloc] initWithObjectsAndKeys:participants,@"detailTextLabel",@"Participants",@"textLabel", nil]];
     
+    NSMutableDictionary * textDictionary = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"Text File",@"name", nil];
+    NSMutableDictionary * micDictionary = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"Mic Audio",@"name", nil];
+    NSMutableDictionary * numDictionary = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"Number Audio",@"name", nil];
+    NSMutableDictionary * mixDictionary = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"Mixed Audio",@"name", nil];
+    
+    uploadType = [NSArray arrayWithObjects:textDictionary,micDictionary,numDictionary,mixDictionary, nil];
+    
     self.navigationItem.title= [fileInfo getName];
     
     if(![[DBSession sharedSession] isLinked])
@@ -100,11 +107,12 @@
     HUD.delegate = self;
     [HUD show:YES];
     
-    NSString * audioFilePath = [[fileInfo.filePath stringByDeletingPathExtension] stringByAppendingPathExtension:@"m4a"];
+    NSString * audioFilePath = [[[fileInfo.filePath stringByDeletingPathExtension] stringByAppendingString:@"_mixed"] stringByAppendingPathExtension:@"m4a"];
     BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:audioFilePath];
     if (fileExists) {
         NSLog(@"Audio File Exists");
         //emailPath = checkAudioPath;
+        numberFinished = 3;
         [self finishedCompression];
     }
     else 
@@ -121,6 +129,9 @@
         dispatch_queue_t q = dispatch_queue_create("queue", NULL);
         
         dispatch_async(q, ^{
+            UBCAudioMixer * audioMixer = [[UBCAudioMixer alloc] init];
+            [audioMixer makeAllFilesfrom:fileInfo.name]; 
+            /*
             [UBCAudioMixer audioFilefromText:fileInfo.filePath toFile:audioFilePath];
             [UBCAudioMixer createMixedAudiofromTextAudio:audioFilePath andRecording:[[fileInfo.filePath stringByDeletingPathExtension] stringByAppendingPathExtension:@"caf"]];
             
@@ -128,7 +139,8 @@
                 HUD.labelText =@"Compressing...";
                 UBCAudioMixer * audioMixer = [[UBCAudioMixer alloc] init];
                 [audioMixer convertForExport:fileInfo.name];
-            });
+             
+            });*/
         });
         
         dispatch_release(q);
@@ -151,30 +163,76 @@
 {
     //[HUD hide:YES];
     
-    NSString * localPath = fileInfo.filePath;
-    NSString * audioPath = [[fileInfo.filePath stringByDeletingPathExtension] stringByAppendingPathExtension:@"m4a"];
-    NSArray * localPaths = [[NSArray alloc] initWithObjects:localPath,audioPath, nil];
-     NSString * destinationPath = @"/Book Club/Recordings/";
-    if([[NSUserDefaults standardUserDefaults] objectForKey:@"dropbox_path"])
+    numberFinished++;
+    if (numberFinished >= 3)
     {
-        destinationPath = [[NSUserDefaults standardUserDefaults] objectForKey:@"dropbox_path"];
+        NSString * localPath = fileInfo.filePath;
+        NSString * audioPath = [[fileInfo.filePath stringByDeletingPathExtension] stringByAppendingPathExtension:@"m4a"];
+        NSArray * localPaths = [[NSArray alloc] initWithObjects:localPath,audioPath, nil];
+        NSString * destinationPath = @"/Book Club/Recordings/";
+        if([[NSUserDefaults standardUserDefaults] objectForKey:@"dropbox_path"])
+        {
+            destinationPath = [[NSUserDefaults standardUserDefaults] objectForKey:@"dropbox_path"];
+        }
+        NSLog(@"destination path: %@",destinationPath);
+        
+        //[[self restClient] uploadFile:fileName toPath:destinationPath withParentRev:nil fromPath:localPath];
+        //[[self restClient] loadMetadata:[destinationPath stringByAppendingPathComponent:fileName]];
+        //[[self restClient] loadMetadata:destinationPath];
+        self.dropbox = [[UBCDropboxController alloc] init];
+        dropbox.delegate = self;
+        
+        
+        HUD.labelText = @"Uploading...";
+        
+        if ([fileInfo.uploadList count] > 0) {
+            [dropbox uploadWithFiles:fileInfo.uploadList andDestinationFolder:destinationPath];
+        }
+        else {
+            [HUD hide:YES];
+            NSLog(@"Nothing to Upload");
+        }
+        
+        
     }
-    NSLog(@"destination path: %@",destinationPath);
-      
-    //[[self restClient] uploadFile:fileName toPath:destinationPath withParentRev:nil fromPath:localPath];
-    //[[self restClient] loadMetadata:[destinationPath stringByAppendingPathComponent:fileName]];
-    //[[self restClient] loadMetadata:destinationPath];
-    self.dropbox = [[UBCDropboxController alloc] init];
-    dropbox.delegate = self;
     
     
-    HUD.labelText = @"Uploading...";
-    
-    [dropbox uploadWithFiles:localPaths andDestinationFolder:destinationPath];
 }
 - (IBAction) uploadPressed:(UIButton *)sender
 {
     //Upload to dropbox
+    for( int i = 0; i<[uploadType count]; i++)
+    {
+        if([[uploadType objectAtIndex:i] objectForKey:@"selected"])
+        {
+            switch (i) {
+                case 0:
+                    //Text file
+                    NSLog(@"Selected: %@",[[uploadType objectAtIndex:i] objectForKey:@"name"]);
+                    [fileInfo.uploadList addObject:fileInfo.filePath];
+                    break;
+                case 1:
+                    //Mic Audio
+                    NSLog(@"Selected: %@",[[uploadType objectAtIndex:i] objectForKey:@"name"]);
+                    [fileInfo.uploadList addObject:[[fileInfo.filePath stringByDeletingPathExtension] stringByAppendingString:@"_mic.m4a"]];
+                    break;
+                case 2:
+                    //Number Audio
+                    NSLog(@"Selected: %@",[[uploadType objectAtIndex:i] objectForKey:@"name"]);
+                    [fileInfo.uploadList addObject:[[fileInfo.filePath stringByDeletingPathExtension] stringByAppendingString:@"_numbers.m4a"]];
+                    break;
+                case 3:
+                    //Mixed Audio
+                    NSLog(@"Selected: %@",[[uploadType objectAtIndex:i] objectForKey:@"name"]);
+                    [fileInfo.uploadList addObject:[[fileInfo.filePath stringByDeletingPathExtension] stringByAppendingString:@"_mixed.m4a"]];
+                    break;
+                    
+                default:
+                    break;
+            }
+        }
+    }
+    
     [self makeAudio];
 }
 - (IBAction) deletePressed:(UIButton *)sender
@@ -186,25 +244,61 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return 2;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{   
+    if(section == 0)
+    {
+        return [content count];
+    }
+    else if (section == 1)
+    {
+        return [uploadType count];
+    }
+    return 1;
+    
+}
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    return [content count];
+    if (section == 1)
+    {
+        return @"Choose files to upload ...";
+    }
+    return @"";
 }
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
+    static NSString *CellIdentifierCheck = @"checkCell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
+    UITableViewCell *cell;
+    
+    if (indexPath.section == 0)
+    {
+        cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
+        }
+        NSDictionary * text = [content objectAtIndex:indexPath.row];
+        cell.textLabel.text=[text objectForKey:@"textLabel"];
+        cell.detailTextLabel.text = [text objectForKey:@"detailTextLabel"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
     }
-    NSDictionary * text = [content objectAtIndex:indexPath.row];
-    cell.textLabel.text=[text objectForKey:@"textLabel"];
-    cell.detailTextLabel.text = [text objectForKey:@"detailTextLabel"];
+    else if (indexPath.section == 1)
+    {
+        cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifierCheck];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifierCheck];
+        }
+        cell.textLabel.text = [[uploadType objectAtIndex:indexPath.row] objectForKey:@"name"];
+        
+    }
+    
+    
     
     //cell.textLabel.text = [fileList objectAtIndex:indexPath.row];
     //cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -213,6 +307,23 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath.section == 1)
+    {
+        UITableViewCell * cell = [tableView cellForRowAtIndexPath:indexPath];
+        if (cell.accessoryType == UITableViewCellAccessoryCheckmark)
+        {
+            [[uploadType objectAtIndex:indexPath.row] setObject:[NSNumber numberWithInt:0] forKey:@"selected"];
+            [cell setAccessoryType:UITableViewCellAccessoryNone];
+        }
+        else {
+            [[uploadType objectAtIndex:indexPath.row] setObject:[NSNumber numberWithInt:1] forKey:@"selected"];
+            [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
+        }
+        
+        
+    }
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (void)viewDidUnload

@@ -15,6 +15,8 @@
 @interface RecordingViewController : UIViewController <UITableViewDelegate, UITableViewDelegate,DBRestClientDelegate,MBProgressHUDDelegate,UBCDropboxControllerDelegate>
 {
     DBRestClient *restClient;
+    NSArray *uploadType;
+    int numberFinished;
 }
 
 @property (nonatomic,strong) IBOutlet UIButton * makeAudioButton;

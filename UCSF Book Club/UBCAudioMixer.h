@@ -25,4 +25,6 @@
 -(NSString *) convertForExport:(NSString *)filePath;
 +(NSString *)createMixedAudiofromTextAudio:(NSString *)textAudioPath andRecording:(NSString *)recordingPath;
 
+-(void)makeAllFilesfrom:(NSString *)fileSubName;
+
 @end

@@ -10,11 +10,18 @@
 
 @implementation UBCFileInfo
 
-@synthesize numberOfParticipants,name,length,startDate,filePath,hasAudio,isUploaded;
+@synthesize numberOfParticipants,name,length,startDate,filePath,hasAudio,isUploaded,uploadList;
 
 -(id)initWithFile:(NSString *)fPath
 {
-    self.filePath = fPath;
+    self = [super init];
+    if(self)
+    {
+        self.filePath = fPath;
+        self.uploadList = [[NSMutableArray alloc] init];
+        
+    }
+    
     /*
     NSArray * taps = [UBCFileReader TapsArrayWithFile:self.filePath];
     

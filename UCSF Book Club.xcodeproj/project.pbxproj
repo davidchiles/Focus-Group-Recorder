@@ -485,6 +485,7 @@
 		639F3B44150978A8000F3A2B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: David Chiles (8TSMC84YJV)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -493,6 +494,7 @@
 				GCC_PREFIX_HEADER = "UCSF Book Club/UCSF Book Club-Prefix.pch";
 				INFOPLIST_FILE = "UCSF Book Club/UCSF Book Club-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "BEEFF5C2-F877-45C7-9324-43E8CE64CC29";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -500,6 +502,7 @@
 		639F3B45150978A8000F3A2B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: David Chiles (8TSMC84YJV)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -508,6 +511,7 @@
 				GCC_PREFIX_HEADER = "UCSF Book Club/UCSF Book Club-Prefix.pch";
 				INFOPLIST_FILE = "UCSF Book Club/UCSF Book Club-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "BEEFF5C2-F877-45C7-9324-43E8CE64CC29";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
