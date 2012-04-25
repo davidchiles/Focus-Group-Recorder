@@ -92,12 +92,30 @@
 - (void)restClient:(DBRestClient *)client
 loadMetadataFailedWithError:(NSError *)error {
     NSLog(@"Error loading metadata: %@", error);
-    [delegate uploadFialed];
+    if(error.code == 404)
+    {
+        [[self restClient] createFolder:destFilePath];
+        
+    }
+    else {
+        [delegate uploadFialed];
+    }
+    
 }
 
 -(void) restClient:(DBRestClient *)client loadedAccountInfo:(DBAccountInfo *)info
 {
     NSLog(@"Accont Info %@",info.displayName);
+}
+
+- (void)restClient:(DBRestClient*)client createdFolder:(DBMetadata*)folder{
+    NSLog(@"Created Folder Path %@",folder.path);
+    NSLog(@"Created Folder name %@",folder.filename);
+    [self uploadWithFiles:localFilePaths andDestinationFolder:destFilePath];
+}
+// [error userInfo] contains the root and path
+- (void)restClient:(DBRestClient*)client createFolderFailedWithError:(NSError*)error{
+    NSLog(@"%@",error);
 }
 
 
