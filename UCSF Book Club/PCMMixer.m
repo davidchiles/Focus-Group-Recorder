@@ -391,8 +391,10 @@ reterr:
         status = AudioFileOpenURL(textAudioCFURL, kAudioFileReadPermission, 0, &numberAudioFileID);
         
         [PCMMixer writeAudio:numberAudioFileID toExisistingAudio:mixAudioFile withMicAudio:micAudioFileID aPacket:packets];
-        
+        AudioFileClose(numberAudioFileID);
     }
+    AudioFileClose(mixAudioFile);
+    AudioFileClose(micAudioFileID);
     
     
 }
