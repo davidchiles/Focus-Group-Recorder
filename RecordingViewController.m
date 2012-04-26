@@ -200,6 +200,7 @@
 }
 - (IBAction) uploadPressed:(UIButton *)sender
 {
+    [fileInfo.uploadList removeAllObjects];
     //Upload to dropbox
     for( int i = 0; i<[uploadType count]; i++)
     {
@@ -207,7 +208,7 @@
         {
             switch (i) {
                 case 0:
-                    //Text file
+                   //Text File
                     NSLog(@"Selected: %@",[[uploadType objectAtIndex:i] objectForKey:@"name"]);
                     [fileInfo.uploadList addObject:fileInfo.filePath];
                     break;
@@ -217,11 +218,6 @@
                     [fileInfo.uploadList addObject:[[fileInfo.filePath stringByDeletingPathExtension] stringByAppendingString:@"_mic.m4a"]];
                     break;
                 case 2:
-                    //Number Audio
-                    NSLog(@"Selected: %@",[[uploadType objectAtIndex:i] objectForKey:@"name"]);
-                    [fileInfo.uploadList addObject:[[fileInfo.filePath stringByDeletingPathExtension] stringByAppendingString:@"_numbers.m4a"]];
-                    break;
-                case 3:
                     //Mixed Audio
                     NSLog(@"Selected: %@",[[uploadType objectAtIndex:i] objectForKey:@"name"]);
                     [fileInfo.uploadList addObject:[[fileInfo.filePath stringByDeletingPathExtension] stringByAppendingString:@"_mixed.m4a"]];
@@ -232,7 +228,7 @@
             }
         }
     }
-    
+    NSLog(@"Upload List: %@",fileInfo.uploadList);
     [self makeAudio];
 }
 - (IBAction) deletePressed:(UIButton *)sender
@@ -312,7 +308,7 @@
         UITableViewCell * cell = [tableView cellForRowAtIndexPath:indexPath];
         if (cell.accessoryType == UITableViewCellAccessoryCheckmark)
         {
-            [[uploadType objectAtIndex:indexPath.row] setObject:[NSNumber numberWithInt:0] forKey:@"selected"];
+            [[uploadType objectAtIndex:indexPath.row] removeObjectForKey:@"selected"];
             [cell setAccessoryType:UITableViewCellAccessoryNone];
         }
         else {
