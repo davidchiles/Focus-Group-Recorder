@@ -180,9 +180,10 @@
         dropbox.delegate = self;
         
         
-        HUD.labelText = @"Uploading...";
+        
         
         if ([fileInfo.uploadList count] > 0) {
+            HUD.labelText = @"Uploading...";
             [dropbox uploadWithFiles:fileInfo.uploadList andDestinationFolder:destinationPath];
         }
         else {
