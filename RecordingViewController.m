@@ -82,10 +82,7 @@
     
     self.navigationItem.title= [fileInfo getName];
     
-    if(![[DBSession sharedSession] isLinked])
-    {
-        uploadButton.enabled = NO;
-    }
+    [self checkUploadButton];
 }
 
 - (void) viewDidAppear:(BOOL)animated
@@ -102,8 +99,8 @@
 
 - (void) makeAudio
 {
-    HUD = [[MBProgressHUD alloc] initWithView:self.view];
-    [self.view addSubview:HUD];
+    HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+    [self.navigationController.view addSubview:HUD];
     HUD.delegate = self;
     [HUD show:YES];
     
@@ -118,9 +115,9 @@
     else 
     {
         NSLog(@"create Audio");
-        NSString * audioFileName = [fileInfo.name stringByAppendingString:@".caf"];
-        NSString * cachesDirectory = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-        NSString * audioFilePath = [cachesDirectory stringByAppendingPathComponent:audioFileName];
+        //NSString * audioFileName = [fileInfo.name stringByAppendingString:@".caf"];
+        //NSString * cachesDirectory = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+        //NSString * audioFilePath = [cachesDirectory stringByAppendingPathComponent:audioFileName];
         
         
         HUD.labelText = @"Creating...";
@@ -164,11 +161,11 @@
     //[HUD hide:YES];
     
     numberFinished++;
-    if (numberFinished >= 3)
+    if (numberFinished >= 2)
     {
-        NSString * localPath = fileInfo.filePath;
-        NSString * audioPath = [[fileInfo.filePath stringByDeletingPathExtension] stringByAppendingPathExtension:@"m4a"];
-        NSArray * localPaths = [[NSArray alloc] initWithObjects:localPath,audioPath, nil];
+        //NSString * localPath = fileInfo.filePath;
+        //NSString * audioPath = [[fileInfo.filePath stringByDeletingPathExtension] stringByAppendingPathExtension:@"m4a"];
+        //NSArray * localPaths = [[NSArray alloc] initWithObjects:localPath,audioPath, nil];
         NSString * destinationPath = @"/Book Club/Recordings/";
         if([[NSUserDefaults standardUserDefaults] objectForKey:@"dropbox_path"])
         {
@@ -192,7 +189,7 @@
             [HUD hide:YES];
             NSLog(@"Nothing to Upload");
         }
-        
+        [self checkUploadButton];
         
     }
     
@@ -228,7 +225,6 @@
             }
         }
     }
-    NSLog(@"Upload List: %@",fileInfo.uploadList);
     [self makeAudio];
 }
 - (IBAction) deletePressed:(UIButton *)sender
@@ -330,14 +326,47 @@
         selected += [[cellDictionary objectForKey:@"selected"] intValue] ;
         
     }
-    if (selected > 0)
+    
+    NSString * mixedAudioFilePath = [[[fileInfo.filePath stringByDeletingPathExtension] stringByAppendingString:@"_mixed"] stringByAppendingPathExtension:@"m4a"];
+    NSString * micAudioFilePath = [[[fileInfo.filePath stringByDeletingPathExtension] stringByAppendingString:@"_mic"] stringByAppendingPathExtension:@"m4a"];
+    BOOL mixedfileExists = [[NSFileManager defaultManager] fileExistsAtPath:mixedAudioFilePath];
+    BOOL micfileExists = [[NSFileManager defaultManager] fileExistsAtPath:micAudioFilePath];
+    
+    if (mixedfileExists && micfileExists && selected == 0) {
+        //FILES ALREADY EXIST // ONLY NEED TO UPLOAD
+        [uploadButton setTitle:@"Upload to Dropbox" forState:UIControlStateNormal];
+        uploadButton.titleLabel.textAlignment = UITextAlignmentCenter;
+        uploadButton.enabled = NO;
+    }
+    else if (mixedfileExists && micfileExists && selected > 0) {
+        [uploadButton setTitle:@"Upload to Dropbox" forState:UIControlStateNormal];
+        uploadButton.titleLabel.textAlignment = UITextAlignmentCenter;
+        if(![[DBSession sharedSession] isLinked])
+        {
+            uploadButton.enabled = NO;
+        }
+        else {
+            uploadButton.enabled = YES;
+        }
+    
+    }
+    else if (selected > 0)
     {
         [uploadButton setTitle:@"Create Audio Files and Upload" forState:UIControlStateNormal];
         uploadButton.titleLabel.textAlignment = UITextAlignmentCenter;
+        if(![[DBSession sharedSession] isLinked])
+        {
+            uploadButton.enabled = NO;
+        }
+        else {
+            uploadButton.enabled = YES;
+        }
     }
     else {
-        uploadButton.titleLabel.text = @"Create Audio Files";
+        [uploadButton setTitle:@"Create Audio Files" forState:UIControlStateNormal];
+        uploadButton.enabled = YES;
     }
+    
 }
 
 - (void)viewDidUnload

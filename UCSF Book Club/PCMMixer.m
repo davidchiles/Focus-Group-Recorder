@@ -240,6 +240,7 @@ BOOL mix_buffers(const int16_t *buffer1,
 		}
 
 		packetNum1 += numPackets1;
+        
 
 		numPackets2 = BUFFER_SIZE / inputDataFormat.mBytesPerPacket;
 		status = AudioFileReadPackets(inAudioFile2,
@@ -536,7 +537,8 @@ reterr:
 		if (status) {
 			//goto reterr;
 		}
-        
+        if (numPackets1 == 0)
+			break;
 		// if buffer was not filled, fill with zeros
         
 		if (bytesRead < BUFFER_SIZE) {
@@ -569,16 +571,15 @@ reterr:
 		// If no frames were returned, conversion is finished
         
 		//if (numPackets1 == 0 || numPackets2 == 0)
-        if (numPackets1 == 0)
-			break;
+        
         
 		// Write pcm data to output file
         
 		int maxNumPackets;
 		if (numPackets1 > numPackets2) {
-			maxNumPackets = numPackets1; 
+			maxNumPackets = numPackets2; 
 		} else {
-			maxNumPackets = numPackets2;
+			maxNumPackets = numPackets1;
 		}
         
 		int numSamples = (numPackets1 * inputDataFormat.mBytesPerPacket) / sizeof(int16_t);

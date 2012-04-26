@@ -76,11 +76,20 @@
     NSError * error;
     NSString * docDirectory =[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     NSString * textPath = [docDirectory stringByAppendingPathComponent:[fileName stringByAppendingPathExtension:@"txt"]];
-    NSString * audioPath = [docDirectory stringByAppendingPathComponent:[fileName stringByAppendingPathExtension:@"m4a"]];
+    NSString * mixedAudioPath = [docDirectory stringByAppendingPathComponent:[fileName stringByAppendingString:@"_mixed.m4a"]];
+    NSString * micAudioPath = [docDirectory stringByAppendingPathComponent:[fileName stringByAppendingString:@"_mic.m4a"]];
+    NSString * micCafAudioPath = [docDirectory stringByAppendingPathComponent:[fileName stringByAppendingString:@".caf"]];
+    NSArray * filePaths = [NSArray arrayWithObjects:textPath,mixedAudioPath,micAudioPath,micCafAudioPath, nil];
     
-    [fileMgr removeItemAtPath:textPath error:&error];
-    if([fileMgr fileExistsAtPath:audioPath])
-        [fileMgr removeItemAtPath:audioPath error:&error];
+    for (NSString * path in filePaths)
+    {
+        if([fileMgr fileExistsAtPath:path])
+            [fileMgr removeItemAtPath:path error:&error];
+        
+    }
+    if (error) {
+        NSLog(@"Dlete File Error: %@",[error localizedDescription]);
+    }
 }
 
 @end

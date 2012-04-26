@@ -190,11 +190,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "UCSF Book Club/PCMMixer.m"
-         timestampString = "357087556.740651"
+         timestampString = "357173021.017118"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "298"
-         endingLineNumber = "298"
+         startingLineNumber = "299"
+         endingLineNumber = "299"
          landmarkName = "+mix:file2:mixfile:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -255,11 +255,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "RecordingViewController.m"
-         timestampString = "357003431.103302"
+         timestampString = "357170871.054981"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "167"
-         endingLineNumber = "167"
+         startingLineNumber = "164"
+         endingLineNumber = "164"
          landmarkName = "-finishedCompression"
          landmarkType = "5">
       </FileBreakpoint>
@@ -281,11 +281,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "UCSF Book Club/PCMMixer.m"
-         timestampString = "357087936.678315"
+         timestampString = "357173021.017118"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "392"
-         endingLineNumber = "392"
+         startingLineNumber = "393"
+         endingLineNumber = "393"
          landmarkName = "+mixedAudioFromTextAudio:MicAudioPath:toMixPath:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -294,59 +294,7 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "UCSF Book Club/PCMMixer.m"
-         timestampString = "357092814.487966"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "608"
-         endingLineNumber = "608"
-         landmarkName = "+writeAudio:toExisistingAudio:withMicAudio:aPacket:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "UCSF Book Club/PCMMixer.m"
-         timestampString = "357092814.487966"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "615"
-         endingLineNumber = "615"
-         landmarkName = "+writeAudio:toExisistingAudio:withMicAudio:aPacket:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "UCSF Book Club/PCMMixer.m"
-         timestampString = "357092814.487966"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "610"
-         endingLineNumber = "610"
-         landmarkName = "+writeAudio:toExisistingAudio:withMicAudio:aPacket:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "UCSF Book Club/PCMMixer.m"
-         timestampString = "357092814.487966"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "614"
-         endingLineNumber = "614"
-         landmarkName = "+writeAudio:toExisistingAudio:withMicAudio:aPacket:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "UCSF Book Club/PCMMixer.m"
-         timestampString = "357092814.487966"
+         timestampString = "357173021.017118"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "609"
@@ -359,11 +307,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "UCSF Book Club/PCMMixer.m"
-         timestampString = "357092814.487966"
+         timestampString = "357173021.017118"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "618"
-         endingLineNumber = "618"
+         startingLineNumber = "616"
+         endingLineNumber = "616"
          landmarkName = "+writeAudio:toExisistingAudio:withMicAudio:aPacket:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -372,11 +320,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "UCSF Book Club/PCMMixer.m"
-         timestampString = "357092550.607078"
+         timestampString = "357173021.017118"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "469"
-         endingLineNumber = "469"
+         startingLineNumber = "611"
+         endingLineNumber = "611"
          landmarkName = "+writeAudio:toExisistingAudio:withMicAudio:aPacket:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -385,11 +333,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "UCSF Book Club/PCMMixer.m"
-         timestampString = "357091662.407383"
+         timestampString = "357173021.017118"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "456"
-         endingLineNumber = "456"
+         startingLineNumber = "615"
+         endingLineNumber = "615"
          landmarkName = "+writeAudio:toExisistingAudio:withMicAudio:aPacket:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -398,25 +346,181 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "UCSF Book Club/PCMMixer.m"
-         timestampString = "357092550.607078"
+         timestampString = "357173021.017118"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "493"
-         endingLineNumber = "493"
+         startingLineNumber = "610"
+         endingLineNumber = "610"
          landmarkName = "+writeAudio:toExisistingAudio:withMicAudio:aPacket:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "Yes"
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "UCSF Book Club/PCMMixer.m"
+         timestampString = "357173021.017118"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "619"
+         endingLineNumber = "619"
+         landmarkName = "+writeAudio:toExisistingAudio:withMicAudio:aPacket:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "UCSF Book Club/PCMMixer.m"
+         timestampString = "357173021.017118"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "470"
+         endingLineNumber = "470"
+         landmarkName = "+writeAudio:toExisistingAudio:withMicAudio:aPacket:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "UCSF Book Club/PCMMixer.m"
+         timestampString = "357173021.017118"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "457"
+         endingLineNumber = "457"
+         landmarkName = "+writeAudio:toExisistingAudio:withMicAudio:aPacket:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "UCSF Book Club/PCMMixer.m"
+         timestampString = "357173021.017118"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "494"
+         endingLineNumber = "494"
+         landmarkName = "+writeAudio:toExisistingAudio:withMicAudio:aPacket:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "RecordingViewController.m"
-         timestampString = "357168364.703015"
+         timestampString = "357170871.054981"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "232"
-         endingLineNumber = "232"
+         startingLineNumber = "228"
+         endingLineNumber = "228"
          landmarkName = "-uploadPressed:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "RecordingViewController.m"
+         timestampString = "357170922.937523"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "335"
+         endingLineNumber = "335"
+         landmarkName = "-checkUploadButton"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "UCSF Book Club/PCMMixer.m"
+         timestampString = "357173013.307772"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "243"
+         endingLineNumber = "243"
+         landmarkName = "+mix:file2:mixfile:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "UCSF Book Club/PCMMixer.m"
+         timestampString = "357173120.313107"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "486"
+         endingLineNumber = "486"
+         landmarkName = "+writeAudio:toExisistingAudio:withMicAudio:aPacket:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "UCSF Book Club/PCMMixer.m"
+         timestampString = "357173866.152641"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "549"
+         endingLineNumber = "549"
+         landmarkName = "+writeAudio:toExisistingAudio:withMicAudio:aPacket:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "UCSF Book Club/PCMMixer.m"
+         timestampString = "357173866.152641"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "548"
+         endingLineNumber = "548"
+         landmarkName = "+writeAudio:toExisistingAudio:withMicAudio:aPacket:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "UCSF Book Club/PCMMixer.m"
+         timestampString = "357174118.863755"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "540"
+         endingLineNumber = "540"
+         landmarkName = "+writeAudio:toExisistingAudio:withMicAudio:aPacket:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "UCSF Book Club/PCMMixer.m"
+         timestampString = "357174366.744921"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "55"
+         endingLineNumber = "55"
+         landmarkName = "mix_buffers()"
+         landmarkType = "7">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "UCSF Book Club/PCMMixer.m"
+         timestampString = "357174445.076272"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "598"
+         endingLineNumber = "598"
+         landmarkName = "+writeAudio:toExisistingAudio:withMicAudio:aPacket:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>
