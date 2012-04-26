@@ -352,7 +352,7 @@ inline SInt16 TPMixSamples(SInt16 a, SInt16 b) {
 		NSLog(@"Clipping");
 	} 
     else {	
-        
+        /*
 		NSURL *url = [NSURL fileURLWithPath:mixPath];
         NSURL *textUrl = [NSURL fileURLWithPath:textAudioPath];
         NSURL *recordingUrl = [NSURL fileURLWithPath:textAudioPath];
@@ -364,6 +364,7 @@ inline SInt16 TPMixSamples(SInt16 a, SInt16 b) {
 		NSLog(@"Wrote mix file of size %d : %@", [urlData length], mixPath);
         NSLog(@"TextAudio file of size %d : %@", [textUrlData length], textAudioPath);
         NSLog(@"RecordingAudio file of size %d : %@", [recordingUrlData length], recordingUrl);
+         */
     }
     
     return mixPath;
@@ -434,7 +435,6 @@ inline SInt16 TPMixSamples(SInt16 a, SInt16 b) {
         [UBCAudioMixer writeAudio:resourceString toExistingAudio:mixAudioFile atPacket:packets];
         
     }
-    
     return mixPath;
     
 }
@@ -482,7 +482,9 @@ inline SInt16 TPMixSamples(SInt16 a, SInt16 b) {
     NSString* mixedAudioCompressed = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_mixed.%@",fileSubName,@"m4a"]];
     
     [UBCAudioMixer audioFilefromText:txtFilePath toFile:numbersAudioCAF]; //Created textAudioCAF
-    [UBCAudioMixer createMixedAudiofromTextAudio:numbersAudioCAF andRecording:micAudioCAF]; //Created Mix audio
+    //[UBCAudioMixer createMixedAudiofromTextAudio:numbersAudioCAF andRecording:micAudioCAF]; //Created Mix audio
+    [PCMMixer mixedAudioFromTextAudio:txtFilePath MicAudioPath:micAudioCAF toMixPath:mixedAudioCAF];
+    
     
     //Compress all three
     [self compressAudio:numbersAudioCAF toDest:numbersAudoCompressed];

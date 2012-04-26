@@ -170,7 +170,16 @@
     }
     else if(section == 1)
     {
-        return @"Dropbox";
+        return @"Dropbox Folder";
+    }
+    return @"";
+}
+
+-(NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
+{
+    if(section == 1)
+    {
+        return @"No Spaces allowed";
     }
     return @"";
 }

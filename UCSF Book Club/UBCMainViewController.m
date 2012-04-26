@@ -43,7 +43,7 @@
     [recordButton setTitle:@"Record" forState:UIControlStateNormal];
     //[recordButton setBackgroundColor:[UIColor redColor]];
     [recordButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    recordButton.titleLabel.font = [UIFont systemFontOfSize:20];
+    recordButton.titleLabel.font = [UIFont systemFontOfSize:24];
     [[recordButton layer] setCornerRadius:recordButton.frame.size.height/2];
     [[recordButton layer] setMasksToBounds:YES];
     [[recordButton layer] setBorderWidth:1.0f];

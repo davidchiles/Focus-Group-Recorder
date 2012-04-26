@@ -19,5 +19,6 @@
 }
 
 + (OSStatus) mix:(NSString*)file1 file2:(NSString*)file2 mixfile:(NSString*)mixfile;
++(void)mixedAudioFromTextAudio: (NSString*) textPath MicAudioPath: (NSString *) micAudioPath toMixPath:(NSString *) mixAudioPath;
 
 @end
