@@ -460,7 +460,7 @@ reterr:
     {
         NSLog(@"error getting packet count %ld",status);
     }
-    NSLog(@"CurrentPacketCount before any writing: %llu",packetCount);
+    //NSLog(@"CurrentPacketCount before any writing: %llu",packetCount);
     SInt64 currentEndPacket = packetCount;
     
 	UInt32 numPackets1;
@@ -501,7 +501,7 @@ reterr:
         
         
         currentEndPacket += packetsWritten;
-        NSLog(@"Current End Packet Written: %lld",currentEndPacket);
+        //NSLog(@"Current End Packet Written: %lld",currentEndPacket);
     }
     
     packetNum1 = 0;
@@ -616,7 +616,7 @@ reterr:
 		}
         
 		currentEndPacket += packetsWritten;
-        NSLog(@"Current End Packet after writing: %lld",currentEndPacket);
+        //NSLog(@"Current End Packet after writing: %lld",currentEndPacket);
 	}
 
 reterr:

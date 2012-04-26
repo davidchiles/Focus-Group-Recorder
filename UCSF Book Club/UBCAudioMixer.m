@@ -472,22 +472,22 @@ inline SInt16 TPMixSamples(SInt16 a, SInt16 b) {
     NSString* documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     NSString* cachesDirectory = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     
-    NSString* numbersAudioCAF = [cachesDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.%@",fileSubName,@"caf"]];
+    //NSString* numbersAudioCAF = [cachesDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.%@",fileSubName,@"caf"]];
     NSString* micAudioCAF = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.%@",fileSubName,@"caf"]];
     NSString* mixedAudioCAF = [cachesDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_mixed.%@",fileSubName,@"caf"]];
     NSString* txtFilePath = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.%@",fileSubName,@"txt"]];
     
-    NSString* numbersAudoCompressed = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_numbers.%@",fileSubName,@"m4a"]];
+    //NSString* numbersAudoCompressed = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_numbers.%@",fileSubName,@"m4a"]];
     NSString* micAudioCompressed = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_mic.%@",fileSubName,@"m4a"]];
     NSString* mixedAudioCompressed = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_mixed.%@",fileSubName,@"m4a"]];
     
-    [UBCAudioMixer audioFilefromText:txtFilePath toFile:numbersAudioCAF]; //Created textAudioCAF
+    //[UBCAudioMixer audioFilefromText:txtFilePath toFile:numbersAudioCAF]; //Created textAudioCAF
     //[UBCAudioMixer createMixedAudiofromTextAudio:numbersAudioCAF andRecording:micAudioCAF]; //Created Mix audio
     [PCMMixer mixedAudioFromTextAudio:txtFilePath MicAudioPath:micAudioCAF toMixPath:mixedAudioCAF];
     
     
-    //Compress all three
-    [self compressAudio:numbersAudioCAF toDest:numbersAudoCompressed];
+    //Compress all two
+    //[self compressAudio:numbersAudioCAF toDest:numbersAudoCompressed];
     [self compressAudio:micAudioCAF toDest:micAudioCompressed];
     [self compressAudio:mixedAudioCAF toDest:mixedAudioCompressed];
     

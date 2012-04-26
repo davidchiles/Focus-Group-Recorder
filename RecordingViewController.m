@@ -75,10 +75,10 @@
     
     NSMutableDictionary * textDictionary = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"Text File",@"name", nil];
     NSMutableDictionary * micDictionary = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"Mic Audio",@"name", nil];
-    NSMutableDictionary * numDictionary = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"Number Audio",@"name", nil];
+    //NSMutableDictionary * numDictionary = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"Number Audio",@"name", nil];
     NSMutableDictionary * mixDictionary = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"Mixed Audio",@"name", nil];
     
-    uploadType = [NSArray arrayWithObjects:textDictionary,micDictionary,numDictionary,mixDictionary, nil];
+    uploadType = [NSArray arrayWithObjects:textDictionary,micDictionary,mixDictionary, nil];
     
     self.navigationItem.title= [fileInfo getName];
     
@@ -319,11 +319,29 @@
             [[uploadType objectAtIndex:indexPath.row] setObject:[NSNumber numberWithInt:1] forKey:@"selected"];
             [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
         }
-        
-        
+        NSLog(@"Upload List: %@",uploadType);
+        [self checkUploadButton];
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+-(void) checkUploadButton
+{
+    int selected = 0;
+    for(NSDictionary * cellDictionary in uploadType)
+    {
+        selected += [[cellDictionary objectForKey:@"selected"] intValue] ;
+        
+    }
+    if (selected > 0)
+    {
+        [uploadButton setTitle:@"Create Audio Files and Upload" forState:UIControlStateNormal];
+        uploadButton.titleLabel.textAlignment = UITextAlignmentCenter;
+    }
+    else {
+        uploadButton.titleLabel.text = @"Create Audio Files";
+    }
 }
 
 - (void)viewDidUnload
