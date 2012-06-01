@@ -31,6 +31,7 @@
 //@property (nonatomic) BOOL txtUploaded;
 //@property (nonatomic) BOOL audioUploaded;
 @property (nonatomic,strong) UBCDropboxController *dropbox;
+@property (nonatomic) BOOL hudIsVisible;
 
 - (IBAction) makeAudioPressed:(UIButton *)sender;
 - (IBAction) uploadPressed:(UIButton *)sender;

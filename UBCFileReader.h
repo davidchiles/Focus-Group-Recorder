@@ -17,4 +17,5 @@
 +(UBCTap *) TapFromString:(NSString *)string;
 +(NSArray *)listFileAtPath;
 +(void)deleteAllFilesRelatedTo:(NSString *)fileName;
++(void)deleteCachedFilesRelatedTo:(NSString *)fileName;
 @end

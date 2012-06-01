@@ -23,7 +23,7 @@
 @property (weak, nonatomic) id <UBCFlipsideViewControllerDelegate> delegate;
 @property (strong,nonatomic) IBOutlet UIButton * dropboxButton;
 @property (nonatomic, strong) IBOutlet UITableView * settingsTable;
-@property (nonatomic, strong) UITextView * pathText;
+@property (nonatomic, strong) UITextField * pathText;
 @property (nonatomic,strong) UIActionSheet *actionSheet;
 
 - (IBAction)dropboxPressed:(id)sender;

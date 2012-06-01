@@ -33,6 +33,7 @@
 @synthesize undoButton;
 @synthesize lastButton;
 @synthesize recorder;
+@synthesize settingsButton, fileButton;
 
 - (void)viewDidLoad
 {
@@ -464,18 +465,42 @@
     }
     if (!self.filePopoverControler) {
         UBCFileViewController *controller = [[UBCFileViewController alloc] initWithNibName:@"UBCFileViewController" bundle:nil];
+        //UIPopoverController *popoverController = [[UIPopoverController alloc] initWithContentViewController:controller];
+        //popoverController.delegate = self;
         UINavigationController * navController = [[UINavigationController alloc] initWithRootViewController:controller];
         controller.navigationItem.title = @"Recordings";
         controller.delegate = self;
         
         self.filePopoverControler = [[UIPopoverController alloc] initWithContentViewController:navController];
+        self.filePopoverControler.delegate = self;
     }
     if ([self.filePopoverControler isPopoverVisible]) {
         [self.filePopoverControler dismissPopoverAnimated:YES];
     } else {
         [self.filePopoverControler presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+        fileButton.enabled = NO;
+        settingsButton.enabled = NO;
     }
     
+}
+
+-(BOOL) popoverControllerShouldDismissPopover:(UIPopoverController *)popoverController
+{
+    if(self.filePopoverControler != nil)
+    {
+        NSLog(@"Class: %@",[((UINavigationController *)(self.filePopoverControler.contentViewController)).topViewController class]);
+        if([((UINavigationController *)(self.filePopoverControler.contentViewController)).topViewController isKindOfClass:[RecordingViewController class]])
+        {
+            NSLog(@"HUD: %d",((RecordingViewController *)((UINavigationController *)(self.filePopoverControler.contentViewController)).topViewController).HUD.isHidden);
+            if (((RecordingViewController *)((UINavigationController *)(self.filePopoverControler.contentViewController)).topViewController).hudIsVisible)
+            { 
+                return NO;
+            }
+        }
+    }
+    fileButton.enabled = YES;
+    settingsButton.enabled = YES;
+    return YES;
 }
 
 

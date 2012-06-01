@@ -20,6 +20,7 @@
 @synthesize content;
 @synthesize HUD;
 @synthesize dropbox;
+@synthesize hudIsVisible;
 
 - (DBRestClient *)restClient {
     if (!restClient) {
@@ -83,18 +84,9 @@
     self.navigationItem.title= [fileInfo getName];
     
     [self checkUploadButton];
-}
-
-- (void) viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    if(![[DBSession sharedSession] isLinked])
-    {
-        uploadButton.enabled = NO;
-    }
-    else {
-        uploadButton.enabled = YES;
-    }
+    
+    hudIsVisible = NO;
+    
 }
 
 - (void) makeAudio
@@ -103,11 +95,15 @@
     [self.navigationController.view addSubview:HUD];
     HUD.delegate = self;
     [HUD show:YES];
+    hudIsVisible = YES;
     
     NSString * audioFilePath = [[[fileInfo.filePath stringByDeletingPathExtension] stringByAppendingString:@"_mixed"] stringByAppendingPathExtension:@"m4a"];
     BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:audioFilePath];
     if (fileExists) {
         NSLog(@"Audio File Exists");
+        HUD.minShowTime = 2.0;
+        HUD.labelText = @"Files Created";
+        
         //emailPath = checkAudioPath;
         numberFinished = 3;
         [self finishedCompression];
@@ -163,6 +159,7 @@
     numberFinished++;
     if (numberFinished >= 2)
     {
+        [UBCFileReader deleteCachedFilesRelatedTo:fileInfo.name];
         //NSString * localPath = fileInfo.filePath;
         //NSString * audioPath = [[fileInfo.filePath stringByDeletingPathExtension] stringByAppendingPathExtension:@"m4a"];
         //NSArray * localPaths = [[NSArray alloc] initWithObjects:localPath,audioPath, nil];
@@ -176,18 +173,27 @@
         //[[self restClient] uploadFile:fileName toPath:destinationPath withParentRev:nil fromPath:localPath];
         //[[self restClient] loadMetadata:[destinationPath stringByAppendingPathComponent:fileName]];
         //[[self restClient] loadMetadata:destinationPath];
-        self.dropbox = [[UBCDropboxController alloc] init];
-        dropbox.delegate = self;
-        
-        
-        
-        
-        if ([fileInfo.uploadList count] > 0) {
-            HUD.labelText = @"Uploading...";
-            [dropbox uploadWithFiles:fileInfo.uploadList andDestinationFolder:destinationPath];
+        if([[DBSession sharedSession] isLinked])
+        {
+            self.dropbox = [[UBCDropboxController alloc] init];
+            dropbox.delegate = self;
+            
+            
+            
+            
+            if ([fileInfo.uploadList count] > 0) {
+                HUD.labelText = @"Uploading...";
+                [dropbox uploadWithFiles:fileInfo.uploadList andDestinationFolder:destinationPath];
+            }
+            else {
+                [HUD hide:YES];
+                hudIsVisible = NO;
+                NSLog(@"Nothing to Upload");
+            }
         }
         else {
             [HUD hide:YES];
+            hudIsVisible = NO;
             NSLog(@"Nothing to Upload");
         }
         [self checkUploadButton];
@@ -198,35 +204,53 @@
 }
 - (IBAction) uploadPressed:(UIButton *)sender
 {
-    [fileInfo.uploadList removeAllObjects];
-    //Upload to dropbox
-    for( int i = 0; i<[uploadType count]; i++)
+    int selected = 0;
+    for(NSDictionary * cellDictionary in uploadType)
     {
-        if([[uploadType objectAtIndex:i] objectForKey:@"selected"])
+        selected += [[cellDictionary objectForKey:@"selected"] intValue] ;
+        
+    }
+    
+    if (selected == 0)
+    {
+        UIAlertView *alert = [[UIAlertView alloc]
+                              initWithTitle: @"Error"
+                              message: @"You need to select at least one file"
+                              delegate: nil
+                              cancelButtonTitle:@"OK"
+                              otherButtonTitles:nil];
+        [alert show];
+    }
+    else {
+
+        for( int i = 0; i<[uploadType count]; i++)
         {
-            switch (i) {
-                case 0:
-                   //Text File
-                    NSLog(@"Selected: %@",[[uploadType objectAtIndex:i] objectForKey:@"name"]);
-                    [fileInfo.uploadList addObject:fileInfo.filePath];
-                    break;
-                case 1:
-                    //Mic Audio
-                    NSLog(@"Selected: %@",[[uploadType objectAtIndex:i] objectForKey:@"name"]);
-                    [fileInfo.uploadList addObject:[[fileInfo.filePath stringByDeletingPathExtension] stringByAppendingString:@"_mic.m4a"]];
-                    break;
-                case 2:
-                    //Mixed Audio
-                    NSLog(@"Selected: %@",[[uploadType objectAtIndex:i] objectForKey:@"name"]);
-                    [fileInfo.uploadList addObject:[[fileInfo.filePath stringByDeletingPathExtension] stringByAppendingString:@"_mixed.m4a"]];
-                    break;
-                    
-                default:
-                    break;
+            if([[uploadType objectAtIndex:i] objectForKey:@"selected"])
+            {
+                switch (i) {
+                    case 0:
+                        //Text File
+                        NSLog(@"Selected: %@",[[uploadType objectAtIndex:i] objectForKey:@"name"]);
+                        [fileInfo.uploadList addObject:fileInfo.filePath];
+                        break;
+                    case 1:
+                        //Mic Audio
+                        NSLog(@"Selected: %@",[[uploadType objectAtIndex:i] objectForKey:@"name"]);
+                        [fileInfo.uploadList addObject:[[fileInfo.filePath stringByDeletingPathExtension] stringByAppendingString:@"_mic.m4a"]];
+                        break;
+                    case 2:
+                        //Mixed Audio
+                        NSLog(@"Selected: %@",[[uploadType objectAtIndex:i] objectForKey:@"name"]);
+                        [fileInfo.uploadList addObject:[[fileInfo.filePath stringByDeletingPathExtension] stringByAppendingString:@"_mixed.m4a"]];
+                        break;
+                        
+                    default:
+                        break;
+                }
             }
         }
+        [self makeAudio];
     }
-    [self makeAudio];
 }
 - (IBAction) deletePressed:(UIButton *)sender
 {
@@ -321,54 +345,26 @@
 
 -(void) checkUploadButton
 {
-    int selected = 0;
-    for(NSDictionary * cellDictionary in uploadType)
-    {
-        selected += [[cellDictionary objectForKey:@"selected"] intValue] ;
-        
-    }
     
     NSString * mixedAudioFilePath = [[[fileInfo.filePath stringByDeletingPathExtension] stringByAppendingString:@"_mixed"] stringByAppendingPathExtension:@"m4a"];
     NSString * micAudioFilePath = [[[fileInfo.filePath stringByDeletingPathExtension] stringByAppendingString:@"_mic"] stringByAppendingPathExtension:@"m4a"];
     BOOL mixedfileExists = [[NSFileManager defaultManager] fileExistsAtPath:mixedAudioFilePath];
     BOOL micfileExists = [[NSFileManager defaultManager] fileExistsAtPath:micAudioFilePath];
     
-    if (mixedfileExists && micfileExists && selected == 0) {
+    if (mixedfileExists && micfileExists && [[DBSession sharedSession] isLinked]) {
         //FILES ALREADY EXIST // ONLY NEED TO UPLOAD
         [uploadButton setTitle:@"Upload to Dropbox" forState:UIControlStateNormal];
-        uploadButton.titleLabel.textAlignment = UITextAlignmentCenter;
-        uploadButton.enabled = NO;
     }
-    else if (mixedfileExists && micfileExists && selected > 0) {
-        [uploadButton setTitle:@"Upload to Dropbox" forState:UIControlStateNormal];
-        uploadButton.titleLabel.textAlignment = UITextAlignmentCenter;
-        if(![[DBSession sharedSession] isLinked])
-        {
-            uploadButton.enabled = NO;
-        }
-        else {
-            uploadButton.enabled = YES;
-        }
-    
-    }
-    else if (selected > 0)
-    {
+    else if([[DBSession sharedSession] isLinked] ) {
         [uploadButton setTitle:@"Create Audio Files and Upload" forState:UIControlStateNormal];
-        uploadButton.titleLabel.textAlignment = UITextAlignmentCenter;
-        if(![[DBSession sharedSession] isLinked])
-        {
-            uploadButton.enabled = NO;
-        }
-        else {
-            uploadButton.enabled = YES;
-        }
     }
     else {
         [uploadButton setTitle:@"Create Audio Files" forState:UIControlStateNormal];
-        uploadButton.enabled = YES;
     }
-    
+    uploadButton.titleLabel.textAlignment = UITextAlignmentCenter;
 }
+
+
 
 - (void)viewDidUnload
 {
@@ -387,6 +383,7 @@
 -(void)uploadsFinished:(int)num
 {
     [HUD hide:YES];
+    hudIsVisible = NO;
 }
 -(void)uploadFialed
 {
@@ -399,7 +396,8 @@
 		sleep(2);
 		// Hide the HUD in the main tread 
 		dispatch_async(dispatch_get_main_queue(), ^{
-			[MBProgressHUD hideHUDForView:self.view animated:YES];
+			[MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
+            hudIsVisible = NO;
 		});
 	});
 #endif

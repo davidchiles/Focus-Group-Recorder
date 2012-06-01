@@ -92,4 +92,21 @@
     }
 }
 
++(void)deleteCachedFilesRelatedTo:(NSString *)fileName
+{
+    NSFileManager *fileMgr = [NSFileManager defaultManager];
+    NSError * error;
+    
+    NSString* cachesDirectory = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    
+    //NSString* numbersAudioCAF = [cachesDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.%@",fileSubName,@"caf"]];
+    NSString* mixedAudioCAF = [cachesDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_mixed.%@",fileName,@"caf"]];
+    
+    if([fileMgr fileExistsAtPath:mixedAudioCAF])
+        [fileMgr removeItemAtPath:mixedAudioCAF error:&error];
+    if (error) {
+        NSLog(@"Dlete File Error: %@",[error localizedDescription]);
+    }
+}
+
 @end

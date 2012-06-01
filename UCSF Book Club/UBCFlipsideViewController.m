@@ -70,7 +70,7 @@
         [dropboxButton setTitle:@" Link Dropbox " forState:UIControlStateNormal];
     } 
     //[dropboxButton.titleLabel setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
-    pathText = [[UITextView alloc] init];
+    pathText = [[UITextField alloc] init];
     if(![[NSUserDefaults standardUserDefaults] objectForKey:@"dropbox_path"]) //Path already stored
     {
         [[NSUserDefaults standardUserDefaults] setObject:@"/Book Club/Recordings/" forKey:@"dropbox_path"];
@@ -212,7 +212,7 @@
             }
             
             
-            pathText.frame = CGRectMake(5, 5, 290, 34);
+            pathText.frame = CGRectMake(7, 10, 290, 34);
             pathText.backgroundColor = [UIColor clearColor];
             pathText.font = [UIFont boldSystemFontOfSize:17.0];
             pathText.textColor = [UIColor colorWithRed:0.243 green:0.306 blue:0.435 alpha:1.0];
