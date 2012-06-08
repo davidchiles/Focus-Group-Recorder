@@ -179,7 +179,7 @@
 {
     if(section == 1)
     {
-        return @"No Spaces allowed";
+        return @"No Spaces Allowed";
     }
     return @"";
 }
@@ -211,6 +211,7 @@
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier2];
             }
             
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
             pathText.frame = CGRectMake(7, 10, 290, 34);
             pathText.backgroundColor = [UIColor clearColor];

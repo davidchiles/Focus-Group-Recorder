@@ -57,9 +57,10 @@ BOOL mix_buffers(const int16_t *buffer1,
 		int32_t s2 = buffer2[i];
         int32_t mixed = (s1 + s2);
         if (max > 32767.0) {
-            int32_t mixed = mixed*(32767.0/max);
+            //mixed = mixed*(32767.0/max);
+            //mixed = mixed - (s1*s2)-32767;
         }
-        mixbuffer[i] = (int16_t) mixed;
+        mixbuffer[i] = (int32_t) mixed;
         //mixbuffer[i] = (int16_t) s1;
         //mixbuffer[i] = (int16_t) s2;
     }
@@ -398,6 +399,8 @@ reterr:
     
     
 }
+
+//currently used
 
 +(void) writeAudio: (AudioFileID) numberAudioFileID toExisistingAudio: (AudioFileID) existingAudioFileID withMicAudio: (AudioFileID) micAudioFileID aPacket: (SInt64) packet
 {

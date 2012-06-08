@@ -41,7 +41,7 @@
 	// Do any additional setup after loading the view, typically from a nib.
     currentFilePath = @"test.txt";
     
-    [recordButton setTitle:@"Record" forState:UIControlStateNormal];
+    [recordButton setTitle:@"Start" forState:UIControlStateNormal];
     //[recordButton setBackgroundColor:[UIColor redColor]];
     [recordButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     recordButton.titleLabel.font = [UIFont systemFontOfSize:24];
@@ -57,8 +57,8 @@
     notRecordingBackground = [[UIImage alloc]init];
     normalImageBackground = [self imageWithColor:[UIColor orangeColor]];
     selectedImageBackground = [self imageWithColor:[UIColor colorWithRed:0.0f green:0.0f blue:0.5f alpha:1.0f]];
-    recordingBackground = [self imageWithColor:[UIColor colorWithRed:0.0f green:0.8f blue:0.0f alpha:1.0f]];
-    notRecordingBackground = [self imageWithColor:[UIColor redColor]];
+    recordingBackground = [self imageWithColor:[UIColor colorWithRed:1.0f green:0.0f blue:0.0f alpha:1.0f]];
+    notRecordingBackground = [self imageWithColor:[UIColor greenColor]];
     
     [recordButton setBackgroundImage:[notRecordingBackground stretchableImageWithLeftCapWidth:recordButton.frame.size.height topCapHeight:0] forState:UIControlStateNormal];
     [recordButton setBackgroundImage:[selectedImageBackground stretchableImageWithLeftCapWidth:recordButton.frame.size.height topCapHeight:0] forState:UIControlStateSelected];
@@ -281,7 +281,7 @@
         UBCTap * tap = [[UBCTap alloc] initWithDate:currentDate Number:recordButton.tag];
         [UBCOutput addTap:tap toFilePath:currentFilePath withStartTap:startTap];
         
-        [recordButton setTitle:@"Record" forState:UIControlStateNormal];
+        [recordButton setTitle:@"Start" forState:UIControlStateNormal];
         [recordButton setBackgroundImage:[notRecordingBackground stretchableImageWithLeftCapWidth:recordButton.frame.size.height topCapHeight:0] forState:UIControlStateNormal];
         recordButton.tag = 0;
         
