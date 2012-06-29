@@ -451,6 +451,7 @@ inline SInt16 TPMixSamples(SInt16 a, SInt16 b) {
     audioConverter = [[TPAACAudioConverter alloc] initWithDelegate:self 
                                                              source:sourcePath
                                                         destination:destPath];
+    
     [audioConverter start];
     
     return destPath;

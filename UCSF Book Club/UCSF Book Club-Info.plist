@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>Focus Group</string>
+	<string>Group Recorder</string>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIconFiles</key>
@@ -14,8 +14,6 @@
 		<string>Icon-72@2x.png</string>
 		<string>Icon-small-50.png</string>
 		<string>Icon-small-50@2x.png</string>
-		<string>Icon-small.png</string>
-		<string>Icon-small@2x.png</string>
 	</array>
 	<key>CFBundleIdentifier</key>
 	<string>DavidChiles.${PRODUCT_NAME:rfc1034identifier}</string>
@@ -26,7 +24,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.1</string>
+	<string>1.1.1</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -39,7 +37,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1.1</string>
+	<string>1.1.1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UIBackgroundModes</key>

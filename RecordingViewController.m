@@ -163,7 +163,7 @@
         //NSString * localPath = fileInfo.filePath;
         //NSString * audioPath = [[fileInfo.filePath stringByDeletingPathExtension] stringByAppendingPathExtension:@"m4a"];
         //NSArray * localPaths = [[NSArray alloc] initWithObjects:localPath,audioPath, nil];
-        NSString * destinationPath = @"/Book Club/Recordings/";
+        NSString * destinationPath = @"/Recordings/";
         if([[NSUserDefaults standardUserDefaults] objectForKey:@"dropbox_path"])
         {
             destinationPath = [[NSUserDefaults standardUserDefaults] objectForKey:@"dropbox_path"];

@@ -24,6 +24,5 @@
 @property (weak, nonatomic) id <UBCDropboxControllerDelegate> delegate;
 
 -(void)uploadWithFiles:(NSArray*)files andDestinationFolder:(NSString*) filePath;
--(NSArray *)getFoldersFrom:(NSString *)remotePath;
 
 @end

@@ -73,7 +73,7 @@
     pathText = [[UITextField alloc] init];
     if(![[NSUserDefaults standardUserDefaults] objectForKey:@"dropbox_path"]) //Path already stored
     {
-        [[NSUserDefaults standardUserDefaults] setObject:@"/Book Club/Recordings/" forKey:@"dropbox_path"];
+        [[NSUserDefaults standardUserDefaults] setObject:@"/Recordings/" forKey:@"dropbox_path"];
     }
     
     pathText.text = [[NSUserDefaults standardUserDefaults] objectForKey:@"dropbox_path"];

@@ -28,12 +28,9 @@
 @property (nonatomic,strong) UBCFileInfo * fileInfo;
 @property (nonatomic,strong) NSMutableArray * content;
 @property (nonatomic,strong) MBProgressHUD * HUD;
-//@property (nonatomic) BOOL txtUploaded;
-//@property (nonatomic) BOOL audioUploaded;
 @property (nonatomic,strong) UBCDropboxController *dropbox;
 @property (nonatomic) BOOL hudIsVisible;
 
-- (IBAction) makeAudioPressed:(UIButton *)sender;
 - (IBAction) uploadPressed:(UIButton *)sender;
 - (IBAction) deletePressed:(UIButton *)sender;
 

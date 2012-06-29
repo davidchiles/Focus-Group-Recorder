@@ -133,7 +133,7 @@
      forControlEvents:UIControlEventTouchDown];
     [button setTitle:[NSString stringWithFormat:@"%d",n] forState:UIControlStateNormal];
     
-    [button setTag:n+1];
+    button.tag = n;
     button.autoresizingMask= UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
     [[button layer] setCornerRadius:buttonSize/6];
     [[button layer] setMasksToBounds:YES];
@@ -188,7 +188,7 @@
          forControlEvents:UIControlEventTouchDown];
         [button setTitle:[NSString stringWithFormat:@"%d",n+1] forState:UIControlStateNormal];
         button.titleLabel.font = [UIFont systemFontOfSize:buttonSize/1.5];
-        [button setTag:n+1];
+        button.tag = n+1;
         button.frame = CGRectMake(midXButton-buttonSize/2, midYButton-buttonSize/2, buttonSize, buttonSize);
         button.autoresizingMask= UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
         [[button layer] setCornerRadius:button.frame.size.height/6];
@@ -326,7 +326,7 @@
         UIButton * button=[self makeDefaultButtonWithNumber:n Size:buttonSize];
         [circleView addSubview:button];
         [buttons addObject:button];
-        n--;
+        //n--;
     }
     NSLog(@"Change Button Location");
     [self changeButtonLocation:buttons inView:circleView];

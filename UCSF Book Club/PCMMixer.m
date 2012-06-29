@@ -35,34 +35,40 @@ BOOL mix_buffers(const int16_t *buffer1,
 		int32_t s2 = buffer2[i];
 		int32_t mixed = (s1 + s2);
         //mixed = s1;
-        max= MAX(max, mixed);
-        min= MIN(min, mixed);
+        max= MAX(s1, s2);
+        min= MIN(s1, s2);
         max= MAX(abs(min), max);
-        
-		if (mixed < -32768) {
-			clipping = TRUE;
-            //mixed = -32767;
-			//break;
-		} 
-        else if(mixed > 32767)
-        {
-            //mixed = 32767;
+        if ((mixed < -32768) || (mixed > 32767)) {
+            //NSLog(@"Mixed Clipping");
         }
+        
         
         //mixbuffer[i] = (int16_t) mixed;
 	}
     //NSLog(@"\nMin: %d \nMax: %d",min,max);
     for (int i=0 ; i < mixbufferNumSamples; i++) {
-        int32_t s1 = buffer1[i];
-		int32_t s2 = buffer2[i];
-        int32_t mixed = (s1 + s2);
-        if (max > 32767.0) {
-            //mixed = mixed*(32767.0/max);
-            //mixed = mixed - (s1*s2)-32767;
+        int16_t s1 = buffer1[i];
+		int16_t s2 = buffer2[i];
+        int16_t mixed;
+        
+        
+        mixed = s1 + s2;
+        
+        if (mixed > 32768)
+        {
+            mixbuffer[i] = 32767;
         }
-        mixbuffer[i] = (int32_t) mixed;
+        else if (mixed < -32768)
+        {
+            mixbuffer[i] = -32767;
+        }
+        else {
+            mixbuffer[i] = (int16_t) mixed;
+        }
+        
         //mixbuffer[i] = (int16_t) s1;
         //mixbuffer[i] = (int16_t) s2;
+        
     }
 
 	return clipping;
