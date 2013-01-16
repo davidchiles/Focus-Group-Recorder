@@ -106,14 +106,15 @@
 {
     float angle = (360.0f/(float)buttonsArray.count)*M_PI/180.0f;
     float buttonSize = [self getButtonSizefromNumberofButtons:buttonsArray.count inView:view];
-    CGFloat limit = view.frame.size.height/2.0-buttonSize/2.0;
+    CGFloat limitY = self.circleView.frame.size.height/2.0-buttonSize/2.0;
+    CGFloat limitX = self.circleView.frame.size.width/2.0-buttonSize/2.0;
     CGFloat midX = view.frame.size.width/2;
     CGFloat midY = view.frame.size.height/2;
     int n =0;
     for(UIButton * button in buttonsArray)
     {
-        float midXButton = (limit * cosf(angle*n+M_PI*1.5))+midX; 
-        float midYButton = (limit * sinf(angle*n+M_PI*1.5))+midY;
+        float midXButton = (limitX * cosf(angle*n+M_PI*1.5))+midX;
+        float midYButton = (limitY * sinf(angle*n+M_PI*1.5))+midY;
         
         button.frame = CGRectMake(midXButton-buttonSize/2, midYButton-buttonSize/2, buttonSize, buttonSize);
         button.titleLabel.font = [UIFont systemFontOfSize:buttonSize/1.5];

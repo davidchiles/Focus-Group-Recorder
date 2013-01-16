@@ -8,6 +8,7 @@
 
 #import "UBCFlipsideViewController.h"
 
+#define MAX_PARTICPANTS 50
 
 @interface UBCFlipsideViewController ()
 
@@ -51,7 +52,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dropboxLinked) name:@"DropboxLinked" object:nil];
     [super viewDidLoad];
     NSMutableArray * nums = [[NSMutableArray alloc] init];
-    for(int i = 2; i<=20; i++)
+    for(int i = 2; i<=MAX_PARTICPANTS; i++)
     {
         [nums addObject:[NSString stringWithFormat:@"%d",i]];
     }

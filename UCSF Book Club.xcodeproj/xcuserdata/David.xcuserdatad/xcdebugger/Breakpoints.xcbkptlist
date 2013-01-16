@@ -8,11 +8,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "UCSF Book Club/UBCMainViewController.m"
-         timestampString = "360108283.045751"
+         timestampString = "380070752.083392"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "176"
-         endingLineNumber = "176"
+         startingLineNumber = "177"
+         endingLineNumber = "177"
          landmarkName = "-setupButtons:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -34,11 +34,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "UCSF Book Club/UBCMainViewController.m"
-         timestampString = "360108283.045751"
+         timestampString = "380070752.083392"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "261"
-         endingLineNumber = "261"
+         startingLineNumber = "262"
+         endingLineNumber = "262"
          landmarkName = "-switchRecordButton"
          landmarkType = "5">
       </FileBreakpoint>
@@ -112,11 +112,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "UCSF Book Club/UBCFlipsideViewController.m"
-         timestampString = "360105919.175741"
+         timestampString = "380069455.11284"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "114"
-         endingLineNumber = "114"
+         startingLineNumber = "115"
+         endingLineNumber = "115"
          landmarkName = "-dropboxPressed:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -125,11 +125,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "UCSF Book Club/UBCFlipsideViewController.m"
-         timestampString = "360105919.175741"
+         timestampString = "380069455.11284"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "101"
-         endingLineNumber = "101"
+         startingLineNumber = "102"
+         endingLineNumber = "102"
          landmarkName = "-dropboxLinked"
          landmarkType = "5">
       </FileBreakpoint>
@@ -528,11 +528,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "UCSF Book Club/UBCMainViewController.m"
-         timestampString = "360108283.045751"
+         timestampString = "380070752.083392"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "468"
-         endingLineNumber = "468"
+         startingLineNumber = "469"
+         endingLineNumber = "469"
          landmarkName = "-showFiles:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -541,11 +541,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "UCSF Book Club/UBCMainViewController.m"
-         timestampString = "360108354.171308"
+         timestampString = "380070752.083392"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "489"
-         endingLineNumber = "489"
+         startingLineNumber = "490"
+         endingLineNumber = "490"
          landmarkName = "-popoverControllerShouldDismissPopover:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -554,11 +554,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "UCSF Book Club/UBCMainViewController.m"
-         timestampString = "360108354.171308"
+         timestampString = "380070752.083392"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "495"
-         endingLineNumber = "495"
+         startingLineNumber = "496"
+         endingLineNumber = "496"
          landmarkName = "-popoverControllerShouldDismissPopover:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -684,11 +684,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "UCSF Book Club/UBCMainViewController.m"
-         timestampString = "362682953.83707"
+         timestampString = "380070752.083392"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "228"
-         endingLineNumber = "228"
+         startingLineNumber = "229"
+         endingLineNumber = "229"
          landmarkName = "-didTap:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -697,7 +697,20 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "UCSF Book Club/UBCMainViewController.m"
-         timestampString = "362683184.670755"
+         timestampString = "380070752.083392"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "193"
+         endingLineNumber = "193"
+         landmarkName = "-setupButtons:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "UCSF Book Club/UBCMainViewController.m"
+         timestampString = "380070752.083392"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "192"
@@ -710,12 +723,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "UCSF Book Club/UBCMainViewController.m"
-         timestampString = "362683185.875324"
+         timestampString = "380070752.083392"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "191"
-         endingLineNumber = "191"
-         landmarkName = "-setupButtons:"
+         startingLineNumber = "326"
+         endingLineNumber = "326"
+         landmarkName = "-changeNumberOfButtons:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -723,12 +736,25 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "UCSF Book Club/UBCMainViewController.m"
-         timestampString = "362683279.732583"
+         timestampString = "380069517.953292"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "325"
-         endingLineNumber = "325"
-         landmarkName = "-changeNumberOfButtons:"
+         startingLineNumber = "102"
+         endingLineNumber = "102"
+         landmarkName = "-getButtonSizefromNumberofButtons:inView:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "UCSF Book Club/UBCMainViewController.m"
+         timestampString = "380070752.083392"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "207"
+         endingLineNumber = "207"
+         landmarkName = "-setupButtons:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>
